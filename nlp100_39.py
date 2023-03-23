@@ -1,6 +1,5 @@
 import nlp100_30
 import matplotlib.pyplot as plt
-import japanize_matplotlib
 import math
 
 sentences = nlp100_30.summarize_result()
