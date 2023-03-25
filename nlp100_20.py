@@ -1,9 +1,10 @@
 import json
 
-with open("uk.txt", mode="w")as f1:
-    with open("jawiki-country.json", mode="r")as f2:
-        for line in f2:
-            line = json.loads(line)
-            if line["title"] == "イギリス":
-                f1.write(line["text"])
-                break
+with open("uk.txt", mode="w")as fw, open("jawiki-country.json", mode="r")as fr:
+    for line in fr:
+        line = json.loads(line)
+        if line["title"] == "イギリス":
+            fw.write(line["text"])
+            break
+
+#7.7ネストを浅くする,p.93
