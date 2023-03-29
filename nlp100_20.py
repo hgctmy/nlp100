@@ -7,4 +7,4 @@ with open("uk.txt", mode="w")as fw, open("jawiki-country.json", mode="r")as fr:
             fw.write(line["text"])
             break
 
-#7.7ネストを浅くする,p.93
+# 7.7ネストを浅くする,p.93
