@@ -9,4 +9,22 @@ for sentence in sentences:
                 sentence[i+2]['pos'] == '名詞'):
             print(sentence[i]['surface'] + sentence[i+1]['surface'] + sentence[i+2]['surface'])
 
-    # 4.4縦の線をまっすぐにする,p.47
+# 4.4縦の線をまっすぐにする,p.47
+
+'''
+長かったため最後の方だけ
+
+妻君の鼻
+甕の中
+烏の勘
+烏の代り
+吾輩の足
+水の面
+甕の縁
+甕のふち
+年の間
+自然の力
+水の中
+座敷の上
+不可思議の太平
+'''

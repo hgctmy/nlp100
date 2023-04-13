@@ -6,3 +6,8 @@ for i in range(len(str1)):
 print(concatenated)
 
 # 2.1明確な単語を選ぶ,p.10
+
+'''
+% python nlp100_02.py
+パタトクカシーー
+'''

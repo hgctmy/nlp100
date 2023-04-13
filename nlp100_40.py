@@ -25,3 +25,19 @@ for sentence in sentences:
         print(vars(morph))
 
 # 7.2if/elseブロックの並び順,p.86
+
+'''
+長かったため最後の方だけ
+{'surface': 'は', 'base': 'は', 'pos': '助詞', 'pos1': '係助詞'}
+{'surface': 'つか', 'base': 'つく', 'pos': '動詞', 'pos1': '自立'}
+{'surface': 'ない', 'base': 'ない', 'pos': '助動詞', 'pos1': '*'}
+{'surface': 'でしょ', 'base': 'です', 'pos': '助動詞', 'pos1': '*'}
+{'surface': 'う', 'base': 'う', 'pos': '助動詞', 'pos1': '*'}
+{'surface': 'ね', 'base': 'ね', 'pos': '助詞', 'pos1': '終助詞'}
+{'surface': '」', 'base': '」', 'pos': '記号', 'pos1': '括弧閉'}
+{'surface': 'と', 'base': 'と', 'pos': '助詞', 'pos1': '格助詞'}
+{'surface': '答え', 'base': '答える', 'pos': '動詞', 'pos1': '自立'}
+{'surface': 'て', 'base': 'て', 'pos': '助詞', 'pos1': '接続助詞'}
+{'surface': 'いる', 'base': 'いる', 'pos': '動詞', 'pos1': '非自立'}
+{'surface': '。', 'base': '。', 'pos': '記号', 'pos1': '句点'}
+'''

@@ -24,3 +24,8 @@ with open("uk.txt", mode="r")as f:
     print(result)
 
     # 4.4縦の線をまっすぐにする,p.47
+
+'''
+% python nlp100_29.py
+https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg
+'''

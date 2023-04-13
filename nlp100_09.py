@@ -15,3 +15,8 @@ str = "I couldn't believe that I could actually understand what I was reading : 
 shuffle_sentence(str)
 
 # 2.1明確な単語を選ぶ,p.10
+
+'''
+% python nlp100_09.py
+I cludo'nt beleive that I cluod atacully undteransd what I was rdenaig : the pnenohamel pewor of the hamun mind .
+'''

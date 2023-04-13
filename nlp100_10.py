@@ -6,3 +6,8 @@ with open("popular-names.txt") as f:
     print(count)
 
 # 5.1コメントするべきではないこと,p.57
+
+'''
+% python nlp100_10.py
+2780
+'''

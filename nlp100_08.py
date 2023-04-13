@@ -10,3 +10,9 @@ message = cipher(message)
 print("複号化:", message)
 
 # 7.3三項演算子,p.88
+
+'''
+% python nlp100_08.py
+暗号化: gsv jfrxp yildm ulc qfnkh levi gsv ozab wlt
+複号化: the quick brown fox jumps over the lazy dog
+'''

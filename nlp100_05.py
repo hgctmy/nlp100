@@ -8,3 +8,9 @@ print(word_bigram)
 print(char_bigram)
 
 # 6.6コードの意図を書く,p.76
+
+'''
+% python nlp100_05.py
+[['I', 'am'], ['am', 'NLPer']]
+[['I', ' '], [' ', 'a'], ['a', 'm'], ['m', ' '], [' ', 'N'], ['N', 'L'], ['L', 'P'], ['P', 'e'], ['e', 'r']]
+'''

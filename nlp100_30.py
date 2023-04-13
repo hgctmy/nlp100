@@ -20,3 +20,8 @@ if __name__ == "__main__":
     print(answer)
 
 # 10.5プロジェクトに特化した機能,p.136
+
+'''
+長かったため最後の方だけ
+{'surface': 'なけれ', 'base': 'ない', 'pos': '助動詞', 'pos1': '*'}, {'surface': 'ば', 'base': 'ば', 'pos': '助詞', 'pos1': '接続助詞'}, {'surface': '得', 'base': '得る', 'pos': '動詞', 'pos1': '自立'}, {'surface': 'られ', 'base': 'られる', 'pos': '動詞', 'pos1': '接尾'}, {'surface': 'ぬ', 'base': 'ぬ', 'pos': '助動詞', 'pos1': '*'}, {'surface': '。', 'base': '。', 'pos': '記号', 'pos1': '句点'}], [{'surface': '南無阿弥陀仏', 'base': '南無阿弥陀仏', 'pos': '名詞', 'pos1': '一般'}, {'surface': '南無阿弥陀仏', 'base': '南無阿弥陀仏', 'pos': '名詞', 'pos1': '一般'}, {'surface': '。', 'base': '。', 'pos': '記号', 'pos1': '句点'}], [{'surface': 'ありがたい', 'base': 'ありがたい', 'pos': '形容詞', 'pos1': '自立'}, {'surface': 'ありがたい', 'base': 'ありがたい', 'pos': '形容詞', 'pos1': '自立'}, {'surface': '。', 'base': '。', 'pos': '記号', 'pos1': '句点'}], []]
+'''
