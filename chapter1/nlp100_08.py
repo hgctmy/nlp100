@@ -3,7 +3,7 @@ def cipher(str):
     return ''.join(rep)  # リスト->文字列
 
 
-message = "the quick brown fox jumps over the lazy dog"
+message = "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
 message = cipher(message)
 print("暗号化:", message)
 message = cipher(message)
