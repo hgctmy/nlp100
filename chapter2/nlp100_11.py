@@ -16,4 +16,6 @@ Ida F 1472 1880
 Alice F 1414 1880
 Bertha F 1320 1880
 Sarah F 1288 1880
+
+sed -e 's/\t/ /g' ./popular-names.txt
 '''

@@ -19,4 +19,7 @@ print(df_sorted.head(10))
 1570  Michael  M  90517  1958
 1370    James  M  88584  1948
 1490  Michael  M  88528  1954
+
+sort -rnk 3 popular-names.txt
+逆順，文字列を数字とみなして，列指定 3
 '''

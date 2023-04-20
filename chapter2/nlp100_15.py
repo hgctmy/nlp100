@@ -18,4 +18,6 @@ print(df.tail(10))
 2777     Lucas  M  12585  2018
 2778     Mason  M  12435  2018
 2779     Logan  M  12352  2018
+
+tail -n 10 popular-names.txt
 '''

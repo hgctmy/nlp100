@@ -10,4 +10,7 @@ with open("popular-names.txt") as f:
 '''
 % python nlp100_10.py
 2780
+
+wc -l ./popular-names.txt
+    2779 ./popular-names.txt
 '''

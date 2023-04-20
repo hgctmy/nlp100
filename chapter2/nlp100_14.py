@@ -18,4 +18,7 @@ print(df.head(10))
 7      Alice  F  1414  1880
 8     Bertha  F  1320  1880
 9      Sarah  F  1288  1880
+
+
+head -n 10 popular-names.txt
 '''

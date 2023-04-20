@@ -35,4 +35,6 @@ Richard	M	50939	1949
 Thomas	M	45202	1949
 Charles	M	40042	1949
 Larry	M	31809	1949
+
+split -n 2 popular-names.txt
 '''

@@ -19,4 +19,6 @@ Ida	F
 Alice	F
 Bertha	F
 Sarah	F
+
+paste col1.txt col2.txt > col12.txt
 '''

@@ -18,4 +18,7 @@ Elizabeth     73
 Joseph        70
 Margaret      60
 Name: 0, dtype: int64
+
+cut -f 1 popular-names.txt | sort | uniq -c | sort -rn
+1列目に対して 並べて 重複カウント 逆順に並べる
 '''
