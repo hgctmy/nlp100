@@ -1,6 +1,6 @@
 # 行数をカウントする
 count = 0
-with open("popular-names.txt") as f:
+with open("popular-names.txt", mode="r") as f:
     for line in f:
         count += 1
     print(count)
