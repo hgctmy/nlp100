@@ -6,3 +6,4 @@ chapter6/train.txt
 chapter6/valid.txt
 chapter6/model.pickle
 chapter6/NewsAggregatorDataset
+chapter7/GoogleNews-vectors-negative300.bin.gz

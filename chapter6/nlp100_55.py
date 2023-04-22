@@ -22,7 +22,7 @@ test:
  [  0   0  34   0]
  [  1   1   2  74]]
 
-
+混同行列の内容
  [[TP   FN  FN  FN]
  [ FP   TN  TN  TN]
  [ FP   TN  TN  TN]
