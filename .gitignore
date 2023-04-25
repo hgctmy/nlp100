@@ -7,3 +7,5 @@ chapter6/valid.txt
 chapter6/model.pickle
 chapter6/NewsAggregatorDataset
 chapter7/GoogleNews-vectors-negative300.bin.gz
+chapter7/questions-words.similar.txt
+chapter7/questions-words.txt
