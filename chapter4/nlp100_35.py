@@ -11,13 +11,12 @@ def word_freqency_ranking(Reverse=1):  # Reverseが1なら降順、0なら昇順
             else:  # 初出の単語なら単語を登録
                 word_freqency[sentence[i]['base']] = 1
     ranking = sorted(word_freqency.items(), key=lambda word: word[1], reverse=Reverse)  # 頻度の多い順にソート
-    ranking_dict = {ranking[i][0]: ranking[i][1] for i in range(len(ranking))}  # 辞書型に
+    ranking_dict = {item[0]: item[1] for item in ranking}  # 辞書型に
     return ranking_dict
 
 
 if __name__ == "__main__":
-    answer = word_freqency_ranking()
-    print(answer)
+    print(word_freqency_ranking())
 
 # 13.4身近なライブラリに親しむ,p.172
 
