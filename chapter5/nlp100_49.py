@@ -20,19 +20,16 @@ with open('ans49.txt', mode='w')as f:
                     j = chunks[j].dst
             # 名詞節の組み合わせについてそれぞれの名詞をXとYに置き換え，path_iの文節を順に出力し，もしpath_jと交わっていればそれも出力
             if len(path_i) > 1:
-                print('X'+''.join([morph.surface if morph.pos != '記号' and morph.pos !=
-                      '名詞' else '' for morph in chunks[path_i[0]].morphs]), end='', file=f)
+                print('X' + ''.join([morph.surface if morph.pos != '記号' and morph.pos != '名詞' else '' for morph in chunks[path_i[0]].morphs]), end='', file=f)
                 for n in path_i[1:-1]:
                     print(' -> ' + ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunks[n].morphs]), end='', file=f)
                 if len(path_j) > 0:
-                    print(' | Y'+''.join([morph.surface if morph.pos != '記号' and morph.pos !=
-                          '名詞' else '' for morph in chunks[path_j[0]].morphs]), end='', file=f)
+                    print(' | Y' + ''.join([morph.surface if morph.pos != '記号' and morph.pos != '名詞' else '' for morph in chunks[path_j[0]].morphs]), end='', file=f)
                     for j in path_j[1:]:
                         print(' -> ' + ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunks[j].morphs]), end='', file=f)
-                    print(' | '+''.join([morph.surface if morph.pos != '記号' else '' for morph in chunks[path_i[-1]].morphs]), end='', file=f)
+                    print(' | ' + ''.join([morph.surface if morph.pos != '記号' else '' for morph in chunks[path_i[-1]].morphs]), end='', file=f)
                 else:
-                    print(' -> Y' + ''.join([morph.surface if morph.pos != '記号' and morph.pos !=
-                          '名詞' else '' for morph in chunks[-1].morphs]), end='', file=f)
+                    print(' -> Y' + ''.join([morph.surface if morph.pos != '記号' and morph.pos != '名詞' else '' for morph in chunks[-1].morphs]), end='', file=f)
                 print('', file=f)
 
 # 7.7ネストを浅くする,p.93

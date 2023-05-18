@@ -5,7 +5,7 @@ with open('ans45.txt', mode='w')as f:
     for chunks in sentences:
         for chunk in chunks:
             for morph in chunk.morphs:
-                source = []  # 係先
+                source = []  # 係元
                 if morph.pos == '動詞':
                     verb = morph.base  # 動詞を含む文節の最左の動詞
                     for src in chunk.srcs:  # 係元に助詞があれば
