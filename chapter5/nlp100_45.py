@@ -19,7 +19,7 @@ with open('ans45.txt', mode='w')as f:
 # 6.6コードの意図を書く,p.76
 
 '''
- sort ans45.txt | uniq -c | sort -n -r | head
+% sort ans45.txt | uniq -c | sort -n -r | head
   49 する       を
   19 する       が
   15 する       に
