@@ -7,11 +7,11 @@ test_answer = pd.read_table("test.txt")['CATEGORY']
 
 # trainの正解率
 n = sum(1 for x, y in zip(train_predicted, train_answer) if x == y)  # 正解数
-accuracy_train = n/train_predicted.shape[0]
+accuracy_train = n / train_predicted.shape[0]
 print(accuracy_train)
 # testの正解率
 n = sum(1 for x, y in zip(test_predicted, test_answer) if x == y)  # 正解数
-accuracy_test = n/test_predicted.shape[0]
+accuracy_test = n / test_predicted.shape[0]
 print(accuracy_test)
 
 # sklearnのaccuracy_score()でもできる
