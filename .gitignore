@@ -13,3 +13,9 @@ chapter7/wordsim353
 chapter7/countries
 chapter8/pytorchtutrial/data
 data
+chapter8/valid_label.txt
+chapter8/valid_feature.txt
+chapter8/train_label.txt
+chapter8/train_feature.txt
+chapter8/test_label.txt
+chapter8/test_feature.txt
