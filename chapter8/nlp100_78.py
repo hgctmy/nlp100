@@ -2,8 +2,8 @@ import nlp100_70
 from torch import nn
 import torch
 from torch.utils.data import DataLoader
-from matplotlib import pyplot as plt
-import numpy as np
+# from matplotlib import pyplot as plt
+# import numpy as np
 import time
 
 train_data = nlp100_70.CustomDataset("train.txt")
@@ -32,14 +32,14 @@ model = torch.nn.DataParallel(model, device_ids=[0, 1])  # マルチGPUになる
 model.to(device)
 
 learning_rate = 1e-3
-epochs = 100
+epochs = 30
 loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.module.parameters(), lr=learning_rate)
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 
 def train_loop(dataloader, model, loss_fn, optimizer):
     for X, y in dataloader:
-        X, y = X.to(device), y.to(device)
+        X, y = X.to(device), y.to(device)  # GPUにのせる
         # 予測と損失の計算
         pred = model(X)
         loss = loss_fn(pred, y)
@@ -66,8 +66,8 @@ def accuracyandloss(dataloader, model, loss_fn):
 
 log_train = []
 log_valid = []
-plt.figure()
-with open("time.txt", mode="w")as f:
+# plt.figure()
+with open("timegpu.txt", mode="w")as f:
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
         print(f"\nEpoch {t+1}, B={2**t}\n-------------------------------", file=f)
@@ -76,6 +76,7 @@ with open("time.txt", mode="w")as f:
         end = time.time()
         log_train.append(accuracyandloss(train_dataloader, model, loss_fn))
         log_valid.append(accuracyandloss(valid_dataloader, model, loss_fn))
+        '''
         g1 = plt.subplot(121)
         g1.plot(np.array(log_train).T[0], color='C0', label='train')
         g1.plot(np.array(log_valid).T[0], color='C1', label='valid')
@@ -92,5 +93,6 @@ with open("time.txt", mode="w")as f:
         # plt.savefig("plot.png")
         g1.remove()
         g2.remove()
+        '''
         print(f"time: {end-start}", file=f)
 print("Done!")

@@ -13,11 +13,11 @@ with open("questions-words.similar.txt", mode="r")as f:
             gramflag = 1
         elif line.startswith(":"):
             gramflag = 0
-        elif gramflag == 0:
+        elif gramflag == 0:  # 意味的
             words = line.split()
-            semantic.append(words[3])
-            semantic_result.append(words[4])
-        else:
+            semantic.append(words[3])  # 答え
+            semantic_result.append(words[4])  # 64の結果
+        else:  # 文法的
             words = line.split()
             syntactic.append(words[3])
             syntactic_result.append(words[4])

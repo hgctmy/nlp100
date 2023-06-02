@@ -4,6 +4,7 @@ import pprint
 
 model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True)
 
+# 国名リストは https://gist.github.com/kalinchernev/486393efcca01623b18d から拝借
 with open("text.txt", mode="r")as f:
     countries = f.read().replace(" ", "_").splitlines()  # 国名リスト　スペースを"_"にし，改行を削除するためにreadからsplitlisens
 countries = [country for country in countries if country in model]  # modelに含まれる国名のみ抽出
