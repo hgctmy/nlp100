@@ -22,8 +22,6 @@ class NeuralNetwork(nn.Module):
             nn.Linear(300, 300),
             nn.ReLU(),
             nn.Linear(300, 300),
-            nn.ReLU(),
-            nn.Linear(300, 4),
             nn.ReLU()
         )
 
