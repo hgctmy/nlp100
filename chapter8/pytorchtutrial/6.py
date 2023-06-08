@@ -48,7 +48,7 @@ batch_size = 64
 epochs = 5
 
 # loss functionの初期化、定義
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.CrossEntropyLoss()  # nn.LogSoftmax と nn.NLLLossを結合した損失関数
 
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 

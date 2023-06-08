@@ -70,7 +70,7 @@ loss_fn = nn.CrossEntropyLoss()
 
 
 def objective(trial):
-    batch_size = int(trial.suggest_discrete_uniform("batch_size", 1, 512, q=4))  # 間隔は4
+    batch_size = int(trial.suggest_int("batch_size", 1, 512, log=True))  # 間隔は4
     dropout = trial.suggest_uniform("dropout", 0.1, 0.5)  # 対数連続値
     optimizer = trial.suggest_categorical("optimizer", ["Adam", "AdamW", "RAdam"])
     learning_rate = trial.suggest_loguniform("learning_rate", 1e-6, 1e-3)
@@ -82,7 +82,7 @@ def objective(trial):
     model = torch.nn.DataParallel(model, device_ids=[0, 1])  # マルチGPUになるように
     model.to(device)
     optimizer = getattr(torch.optim, optimizer)(model.parameters(), lr=learning_rate)
-    minloss = 0
+    minloss = 10.0
     for epoch in range(epochs):
         # 学習
         model.train()
@@ -111,7 +111,12 @@ def objective(trial):
 
 
 study = optuna.create_study()
-study.optimize(objective, n_trials=100)
+study.optimize(objective, n_trials=50)
 
 print(study.best_params)
-print(study.best_value)
+print(f"loss: {study.best_value}")
+
+'''
+{'batch_size': 124, 'dropout': 0.27346271235362063, 'optimizer': 'Adam', 'learning_rate': 1.7519464179271924e-06}
+loss: 0.010569588355217381
+'''
