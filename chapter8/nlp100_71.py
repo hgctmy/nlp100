@@ -18,7 +18,7 @@ class NeuralNetwork(nn.Module):
 
 
 model = NeuralNetwork()
-print("y_1:", nn.Softmax(dim=1)(model(feature[:1])))  # dim=1で行ごとの和が1になるように
+print("y_1:", nn.Softmax(dim=1)(model(feature[:1])))  # dim=1 行ごとの和が1になるように
 print("Y:", nn.Softmax(dim=1)(model(feature)))
 
 '''
