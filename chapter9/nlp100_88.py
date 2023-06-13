@@ -37,7 +37,7 @@ class CustomDataset(Dataset):
 class LSTM(nn.Module):
     def __init__(self, embedding_length, output_size, hidden_size, emb_weights, dropout):
         super().__init__()
-        self.embedding = nn.Embedding.from_pretrained(emb_weights)  # (単語id数+1,埋め込み次元数)
+        self.embedding = nn.Embedding.from_pretrained(emb_weights)
         self.bilstm = nn.LSTM(embedding_length, hidden_size, batch_first=True, num_layers=2, bidirectional=True)  # 双方向，2層
         self.label = nn.Linear(hidden_size * 2, output_size)
         self.dropout = nn.Dropout(dropout)

@@ -21,7 +21,7 @@ class NeuralNetwork(nn.Module):
 
 
 model = NeuralNetwork()
-learning_rate = 1e-3
+learning_rate = 1e-2
 epochs = 100
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
@@ -75,8 +75,8 @@ with open("modelstate.txt", mode="w")as f:
         g2.set_ylabel('accuracy')
         g2.legend()
         plt.pause(0.001)  # リアルタイムで描画
-        # plt.savefig("plot.png")
+        # plt.savefig("plot76.png")
         g1.remove()
         g2.remove()
-        print(f"param: {model.state_dict()}\n", f"optimizer: {optimizer.state_dict()['state']}", file=f)
+        print(f"param: {model.state_dict()}\noptimizer: {optimizer.state_dict()}", file=f)
 print("Done!")
