@@ -28,7 +28,7 @@ class NeuralNetwork(nn.Module):
 
 
 model = NeuralNetwork()
-model = torch.nn.DataParallel(model, device_ids=[0, 1])  # マルチGPUになるように
+model = nn.DataParallel(model, device_ids=[0, 1])  # マルチGPUになるように
 model.to(device)
 
 learning_rate = 1e-3
