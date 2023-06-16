@@ -21,8 +21,7 @@ class NeuralNetwork(nn.Module):
         self.linear_relu_stack = nn.Sequential(
             nn.Linear(300, 300),
             nn.ReLU(),
-            nn.Linear(300, 300),
-            nn.ReLU()
+            nn.Linear(300, 4)
         )
 
     def forward(self, x):
