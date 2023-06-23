@@ -34,20 +34,23 @@ class CustomDataset(Dataset):
 
 
 class LSTM(nn.Module):
-    def __init__(self, embedding_length, output_size, hidden_size, emb_weights):
+    def __init__(self, embedding_length, output_size, hidden_size, emb_weights, dropout):
         super().__init__()
         self.embedding = nn.Embedding.from_pretrained(emb_weights)  # (単語id数+1,埋め込み次元数)
-        self.bilstm = nn.LSTM(embedding_length, hidden_size, batch_first=True, num_layers=2, bidirectional=True)  # 双方向，2層
+        self.bilstm = nn.LSTM(embedding_length, hidden_size, batch_first=True, num_layers=2, bidirectional=True, dropout=dropout)  # 双方向，2層
         self.label = nn.Linear(hidden_size * 2, output_size)
 
-    def forward(self, x):
+    def forward(self, x, x_len):
         embedding = self.embedding(x)
-        out, hidden = self.bilstm(embedding, None)
-        # outは(batch_size，embedding_size, hidden_size), hiddenは使わない
-        return self.label(out[:, -1])
+        embedding = rnn.pack_padded_sequence(embedding, x_len.cpu(), batch_first=True, enforce_sorted=False)
+        self.bilstm.flatten_parameters()
+        _, hidden = self.bilstm(embedding, None)
+        out = torch.cat([hidden[0][0], hidden[0][1]], dim=1)
+        out = self.label(out)
+        return out
 
 
-model = LSTM(300, 4, 50, weights)
+model = LSTM(300, 4, 50, weights, 0)
 learning_rate = 1e-2
 epochs = 100
 loss_fn = nn.CrossEntropyLoss()
@@ -55,11 +58,12 @@ optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 
 def collate_fn(batch):
-    x, y = list(zip(*batch))
-    x = list(rnn.pad_sequence(x, batch_first=True))
-    x = torch.stack(x)
+    X, y = list(zip(*batch))
+    x_len = torch.tensor([len(x) for x in X])
+    X = list(rnn.pad_sequence(X, batch_first=True))
+    X = torch.stack(X)
     y = torch.stack(y)
-    return x, y
+    return X, y, x_len
 
 
 train_data = CustomDataset("../chapter8/train.txt")
@@ -77,10 +81,10 @@ model.to(device)
 def train_loop(dataloader, model, loss_fn, optimizer):
     model.train()
     size = len(dataloader.dataset)
-    for batch, (X, y) in enumerate(dataloader):
-        X, y = X.to(device), y.to(device)
+    for batch, (X, y, x_len) in enumerate(dataloader):
+        X, y, x_len = X.to(device), y.to(device), x_len.to(device)
         # 予測と損失の計算
-        pred = model(X)
+        pred = model(X, x_len)
         loss = loss_fn(pred, y)
         # バックプロパゲーション
         optimizer.zero_grad()
@@ -96,9 +100,9 @@ def accuracyandloss(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
     loss, correct = 0, 0
     with torch.no_grad():  # 勾配計算をしない
-        for X, y in dataloader:
-            X, y = X.to(device), y.to(device)
-            pred = model(X)
+        for X, y, x_len in dataloader:
+            X, y, x_len = X.to(device), y.to(device), x_len.to(device)
+            pred = model(X, x_len)
             loss += loss_fn(pred, y).item()  # 損失
             correct += (torch.argmax(pred, dim=1) == y).sum().item()  # predとyの一致する要素の数
         accuracy = correct / size
@@ -113,12 +117,5 @@ for t in range(epochs):
 print("Done!")
 
 '''
-Epoch 100
--------------------------------
-loss: 0.359651  [    0/10672]
-loss: 0.682685  [ 3200/10672]
-loss: 0.943235  [ 6400/10672]
-loss: 0.994635  [ 9600/10672]
-test_loss: 0.01187168760993134 test_accuracy: 0.7383808095952024
-Done!
+test_loss: 0.010266701119771782 test_accuracy: 0.7608695652173914
 '''
