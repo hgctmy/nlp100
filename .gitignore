@@ -20,3 +20,4 @@ chapter8/train_feature.txt
 chapter8/test_label.txt
 chapter8/test_feature.txt
 chapter10/kftt-data-1.0
+chapter10/transformer_weights.pth

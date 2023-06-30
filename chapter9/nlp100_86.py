@@ -21,7 +21,6 @@ class CNN(nn.Module):
         x = self.relu(x)
         x = F.max_pool1d(x, x.size(-1)).squeeze(-1)  # 次元を削除
         x = self.linear(x)
-        # outは(batch_size，embedding_size, hidden_size), hiddenは使わない
         return x
 
 
