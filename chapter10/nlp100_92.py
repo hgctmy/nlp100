@@ -120,22 +120,21 @@ def greedy_decode(model, src, src_mask, max_len, start_symbol):
     return ys
 
 
-# actual function to translate input sentence into target language
 def translate(model, src_sentence):
     model.eval()
     src = torch.tensor(nlp100_90.sequence2id(src_sentence, word_id_dict_ja)).view(-1, 1)
     num_tokens = src.shape[0]
     src_mask = (torch.zeros(num_tokens, num_tokens)).type(torch.bool)
     tgt_tokens = greedy_decode(model, src, src_mask, max_len=num_tokens + 5, start_symbol=2).flatten()
-    return nlp100_90.id2seqense(tgt_tokens, word_id_dict_en)
+    return nlp100_90.id2seqense(tgt_tokens, word_id_dict_en).replace("<start>", "").replace("<end>", "")
 
 
 if __name__ == "__main__":
     print(translate(model, '日本 の 水墨 画 を 一変 さ せ た 。'))
     print(translate(model, '私 は 学生 だ 。'))
+
 '''
-([nlp100]) (base) h2010574@g04:~/nlp100/[nlp100]/chapter10$ python nlp100_92.py
 Using cuda device
-<start> The Japanese painting of the Japanese painting of the Japanese painting of the Japanese painting .
-<start> The students were in the case of students . <end>
+ He was a painting of Japanese paintings . 
+ The students was the students . 
 '''

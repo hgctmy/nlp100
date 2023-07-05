@@ -1,8 +1,9 @@
-from nltk.translate.bleu_score import sentence_bleu
+from sacrebleu.metrics import BLEU
 import nlp100_91
 from torch.utils.data import DataLoader
 import json
 import torch
+import nlp100_90
 
 
 with open("word_id_dict_en.json")as f:
@@ -32,7 +33,8 @@ test_dataloader = DataLoader(test_data, batch_size=64, shuffle=False, collate_fn
 def evaluate(test_dataloader, model):
     model.eval()
     size = len(test_dataloader.dataset)
-    bleu = 0
+    bleu = BLEU(effective_order=True)  # Trueにすることでマッチするn-gramの順序が連続していない場合にも、より高いスコアが与えられるらしい
+    bleuscore = 0
     with torch.no_grad():  # 勾配計算をしない
         for src, tgt in test_dataloader:
             src = src.to(device)
@@ -40,20 +42,21 @@ def evaluate(test_dataloader, model):
             tgt_input = tgt[:-1, :]
             src_mask, tgt_mask, src_padding_mask, tgt_padding_mask = nlp100_91.create_mask(src, tgt_input)
             logits = model(src, tgt_input, src_mask, tgt_mask, src_padding_mask, tgt_padding_mask, src_padding_mask)
-            tgt_out = tgt[1:, :]
-            result = torch.argmax(logits, dim=2)
+            result = torch.argmax(logits, dim=2).transpose(0, 1)
+            tgt_out = tgt.transpose(0, 1)
             for i in range(len(result)):  # 原文と翻訳文の1セットごとに計算し，サイズで割る
-                bleu += sentence_bleu([str(j) for j in result[i].tolist()], [str(j) for j in tgt_out[i].tolist()])
-        print(f"bleu score: {bleu/size}")
+                tgt_len = 0
+                for j in tgt_out[i]:
+                    if j == 3:
+                        break
+                    else:
+                        tgt_len += 1
+                bleuscore += bleu.sentence_score(nlp100_90.id2seqense(result[i][:tgt_len].tolist(), word_id_dict_en).replace("<end>", ""), [nlp100_90.id2seqense(tgt_out[i][1:tgt_len].tolist(), word_id_dict_en)]).score
+    print(f"BLEU SCORE: {bleuscore/size}")
 
 
 evaluate(test_dataloader, model)
 
 '''
-The hypothesis contains 0 counts of 4-gram overlaps.
-Therefore the BLEU score evaluates to 0, independently of
-how many N-gram overlaps of lower order it contains.
-Consider using lower n-gram order or use SmoothingFunction()
-  warnings.warn(_msg)
-bleu score: 0.00013246643518002648
+BLEU SCORE: 13.578784931848487
 '''

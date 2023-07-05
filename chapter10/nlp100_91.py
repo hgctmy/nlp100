@@ -44,8 +44,6 @@ def collate_fn(batch):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using {device} device")
 
-# helper Module that adds positional encoding to the token embedding to introduce a notion of word order.
-
 
 class PositionalEncoding(nn.Module):
     def __init__(self, emb_size: int, dropout: float, maxlen: int = 5000):
@@ -62,8 +60,6 @@ class PositionalEncoding(nn.Module):
 
     def forward(self, token_embedding):
         return self.dropout(token_embedding + self.pos_embedding[:token_embedding.size(0), :])
-
-# helper Module to convert tensor of input indices into corresponding tensor of token embeddings
 
 
 class TokenEmbedding(nn.Module):
@@ -154,7 +150,7 @@ def evaluate(test_dataloader, model):
 if __name__ == "__main__":
     train_data = CustomDataset("kftt-data-1.0/data/tok/kyoto-train.cln.ja", "kftt-data-1.0/data/tok/kyoto-train.cln.en")
     test_data = CustomDataset("kftt-data-1.0/data/tok/kyoto-test.ja", "kftt-data-1.0/data/tok/kyoto-test.en")
-    train_dataloader = DataLoader(train_data, batch_size=32, shuffle=False, collate_fn=collate_fn)
+    train_dataloader = DataLoader(train_data, batch_size=32, shuffle=True, collate_fn=collate_fn)
     test_dataloader = DataLoader(test_data, batch_size=32, shuffle=False, collate_fn=collate_fn)
 
     SRC_VOCAB_SIZE = len(word_id_dict_ja)
@@ -166,14 +162,13 @@ if __name__ == "__main__":
     NUM_DECODER_LAYERS = 3
 
     model = Seq2SeqTransformer(NUM_ENCODER_LAYERS, NUM_DECODER_LAYERS, EMB_SIZE, NHEAD, SRC_VOCAB_SIZE, TGT_VOCAB_SIZE, FFN_HID_DIM)
-
     # model = torch.nn.DataParallel(model)
     model.to(device)
 
     loss_fn = nn.CrossEntropyLoss(ignore_index=1)
-    lr = 1e-3  # 学習率
+    lr = 1e-4  # 学習率
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    epochs = 15
+    epochs = 30
 
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
@@ -182,6 +177,9 @@ if __name__ == "__main__":
     print("Done!")
 
     torch.save(model.state_dict(), 'transformer_weights.pth')
-
-
-# lossをコピペし忘れましたが，train 3, test 5くらいでした
+'''
+Epoch 30
+-------------------------------
+train loss: 3.5891330358718205
+test loss: 4.30319052773553
+'''
