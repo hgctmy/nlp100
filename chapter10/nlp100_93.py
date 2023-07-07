@@ -51,12 +51,18 @@ def evaluate(test_dataloader, model):
                         break
                     else:
                         tgt_len += 1
-                bleuscore += bleu.sentence_score(nlp100_90.id2seqense(result[i][:tgt_len].tolist(), word_id_dict_en).replace("<end>", ""), [nlp100_90.id2seqense(tgt_out[i][1:tgt_len].tolist(), word_id_dict_en)]).score
+                res_len = 0
+                for j in result[i]:
+                    if j == 3:
+                        break
+                    else:
+                        res_len += 1
+                bleuscore += bleu.sentence_score(nlp100_90.id2seqense(result[i][:res_len].tolist(), word_id_dict_en).replace("<end>", ""), [nlp100_90.id2seqense(tgt_out[i][1:tgt_len].tolist(), word_id_dict_en)]).score
     print(f"BLEU SCORE: {bleuscore/size}")
 
 
 evaluate(test_dataloader, model)
 
 '''
-BLEU SCORE: 13.578784931848487
+BLEU SCORE: 13.18701365397069
 '''
