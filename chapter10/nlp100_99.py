@@ -13,6 +13,11 @@ if "word_id_dict_ja" not in st.session_state:
     with open("word_id_dict_ja.json")as f:
         st.session_state["word_id_dict_ja"] = json.load(f)
 
+if "wakati" not in st.session_state:
+    st.session_state['wakati'] = MeCab.Tagger('-Owakati')
+
+if "text" not in st.session_state:
+    st.session_state['text'] = ''
 
 if "model" not in st.session_state:
 
@@ -26,19 +31,24 @@ if "model" not in st.session_state:
 
     model = nlp100_92.Seq2SeqTransformer(NUM_ENCODER_LAYERS, NUM_DECODER_LAYERS, EMB_SIZE, NHEAD, SRC_VOCAB_SIZE, TGT_VOCAB_SIZE, FFN_HID_DIM)
     model.load_state_dict(torch.load("transformer_weights.pth"))
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
     st.session_state["model"] = model
 
 
 st.title("日英翻訳")
 
 button_placeholder = st.empty()
+text_placeholder = st.empty()
 
 
 def click(input):
-    wakati = MeCab.Tagger('-Owakati')
-    st.write(nlp100_92.translate(st.session_state.model, wakati.parse(input)))
+    st.session_state.text = nlp100_92.translate(st.session_state.model, st.session_state.wakati.parse(input))
 
 
 with button_placeholder.container():
-    input = st.text_area('英語に翻訳したい日本語の文章を入力してください．', height=300)
+    input = st.text_area('英語に翻訳したい日本語の文章を入力してください．', height=200)
     st.button('翻訳する', key='b1', on_click=lambda: click(input))
+
+with text_placeholder.container():
+    st.write(st.session_state.text)
